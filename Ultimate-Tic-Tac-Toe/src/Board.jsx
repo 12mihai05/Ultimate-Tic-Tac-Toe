@@ -1,4 +1,5 @@
 import Tile from './Tile.jsx'
+import './Lines.css'
 
 function Board({ tiles , onTileClick, playerTurn}){
 

@@ -1,46 +1,101 @@
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: hsl(220, 21%, 16%);
-    color: white;
-  }
-  
-  .game{
-    text-align: center;
-  }
-  
-  .big-board {
-    display: grid;
-    grid-template-columns: 170px 170px 170px;
-    grid-template-rows: 170px 170px 170px;
-    position: relative;
-    gap: 40px;
-  }
+  background-color: hsl(220, 21%, 16%);
+  color: white;
+  display: flex;
+  justify-content: center;
+    align-items: center; /* Center vertically */
+    min-height: 85vh; /* Ensure body takes up full viewport height */
+    margin: 0; /* Remove default body margin */
+    overflow-x: hidden; /* Prevent scrollbars due to scaling */
+}
 
-  .board{
-    display: grid;
-    grid-template-columns: 50px 50px 50px;
-    grid-template-rows: 50px 50px 50px;
-    position: relative;
-    gap: 10px;
-  }
+#root{
+  display: flex;
+  flex-wrap: nowrap; /* Ensure no wrapping */
+  overflow: hidden; /* Hide overflow if necessary */
+  transition: transform 0.3s ease; /* Smooth transition */
+  margin-right: 0px;
+}
 
-  .tile {
-    color: currentColor;
-    font-size: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
+.layout{
+  display: flex;
+  flex-direction: row;
+  padding-right: 30px;
+  padding-left: 30px;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
 
-  .x-hover:hover::after {
-    content: "X";
-    opacity: 0.4;
+.layout-2{
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-left: 30px;
+  align-items: center;
+}
+
+.title{
+  text-align: center;
+}
+
+.game{
+  display: flex;
+  flex-direction: column;
+}
+
+.big-board {
+  display: grid;
+  grid-template-columns: 170px 170px 170px;
+  grid-template-rows: 170px 170px 170px;
+  position: relative;
+  gap: 40px;
+}
+
+.board{
+  display: grid;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
+  position: relative;
+  gap: 10px;
+}
+
+.tile {
+  color: currentColor;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.x-hover:hover::after {
+  content: "X";
+  opacity: 0.4;
+}
+
+.o-hover:hover::after {
+  content: "O";
+  opacity: 0.4;
+}
+
+.reset-btn{
+  width: 130px;
+  height: 40px;
+  background-color: rgb(45, 137, 223);
+  margin-top: 10px;
+  border-radius: 20px;
+  border: 2px solid hsl(204, 68%, 65%);
+  text-align: center;
+  align-content: center;
+  font-weight: bold;
+  color: hsl(220, 21%, 16%);
+  cursor: pointer;
+}
+
+@media (max-width: 1001px){
+  .layout-2{
+    margin-left: 0px;
   }
-  
-  .o-hover:hover::after {
-    content: "O";
-    opacity: 0.4;
-  }
+}

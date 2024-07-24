@@ -7,7 +7,7 @@
   .small-line{
     position: absolute;
     background-color: hsl(204, 68%, 65%);
-    border-radius: 10px;
+    border-radius: 5px;
   }
   
   .vertical {
@@ -58,10 +58,159 @@
     left: calc(68%)
   }
 
+  .v-line-x-3{
+    animation:  1s forwards;
+    animation-name: v-line-x-3;
+  }
+
+  .v-line-x-4{
+    animation:  1s forwards;
+    animation-name: v-line-x-4;
+  }
+
+  @keyframes v-line-x-3 {
+    from {left: calc(32%);}
+    to {
+      width: 7px;
+      left: calc(50%);
+      rotate: 45deg;
+    }
+  }
+
+  @keyframes v-line-x-4 {
+    from {left: calc(68%)}
+    to {
+      width: 7px;
+      left: calc(50%);
+      rotate: 45deg;
+    }
+  }
+
+  .v-line-o-3{
+    animation:  1s forwards ease-in;
+    animation-name: v-line-o-3;
+  }
+
+  .v-line-o-4{
+    animation:  1s forwards ease-in;
+    animation-name: v-line-o-4;
+  }
+
+  @keyframes v-line-o-3 {
+    from {left: calc(32%);}
+    to {
+      width: 150px;
+      border-radius: 100%;
+      left: calc(7%);
+      height: 150px;
+      top: calc(10%);
+    }
+  }
+
+  @keyframes v-line-o-4 {
+    from {left: calc(68%)}
+    to {
+      width: 150px;
+      border-radius: 100%;
+      left: calc(7%);
+      height: 150px;
+      top: calc(10%);
+    }
+  }
+
+
+
+
   .h-line-3{
     top: calc(32%);
   }
 
   .h-line-4{
     top: calc(68%);
+  }
+
+  .h-line-x-3{
+    animation:  1s forwards;
+    animation-name: h-line-3;
+  }
+
+  .h-line-x-4{
+    animation:  1s forwards;
+    animation-name: h-line-4;
+  }
+
+
+  @keyframes h-line-3 {
+    from {top: calc(32%);
+      top: calc(50%);}
+    to {
+      height: 7px;
+      top: calc(50%);
+      rotate: 45deg;
+    }
+  }
+
+  @keyframes h-line-4 {
+    from {top: calc(68%)}
+    to {
+      height: 7px;
+      top: calc(50%);
+      rotate: 45deg;
+    }
+  }
+
+  .h-line-o-3{
+    animation:  1s forwards ease-in;
+    animation-name: h-line-o-3;
+  }
+
+  .h-line-o-4{
+    animation:  1s forwards ease-in;
+    animation-name: h-line-o-4;
+  }
+
+  @keyframes h-line-o-3 {
+    0%{
+      top: calc(32%);
+    }
+    30%{
+      border-radius: 100%;
+    }
+    70%{
+      top: 13%;
+      left:13%;
+      width: 130px;
+      height: 130px;
+    }
+    100%{
+      border-radius: 100%;
+      top: 16%;
+      left:13%;
+      width: 130px;
+      height: 130px;
+      background-color: hsl(220, 21%, 16%);
+    }
+  }
+
+  @keyframes h-line-o-4 {
+    0%{
+      top: calc(68%);
+    }
+    30%{
+      border-radius: 100%;
+    }
+    70%{
+      top: 13%;
+      left:13%;
+      width: 130px;
+      height: 130px;
+    }
+    100%{
+      border-radius: 100%;
+      top: 16%;
+      left:13%;
+      width: 130px;
+      height: 130px;
+      background-color: hsl(220, 21%, 16%);
+    }
   }
