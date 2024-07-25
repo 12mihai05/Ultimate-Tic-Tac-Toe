@@ -87,7 +87,7 @@ function App() {
 
     setTimeout(resetAnimation, 0);
 
-    document.getElementsByClassName("title")[0].textContent = `Ultimate Tic Tac Toe`;
+    document.getElementsByClassName("title")[0].textContent = `Ultimate-Tic-Tac-Toe`;
 
     setPlayerTurn(Player_X);
 

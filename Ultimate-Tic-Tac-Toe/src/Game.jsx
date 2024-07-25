@@ -166,6 +166,22 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
     }
 
     const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
+
+    //!!!
+    //after winning a small game you can still play there
+
+    // for(let i = 0; i <= 8; i++){
+    //     if(smallGames[i] != null){
+    //       if(index != i)
+    //         newActiveTiles[i][i] = false;
+    //       if(index =! i){
+    //       newActiveTiles[i][index] = true;
+    //       }
+    //     }else{
+    //       newActiveTiles[i][index] = true;
+    //   }
+    // }
+
     for(let i = 0; i <= 8; i++){
       newActiveTiles[i][index] = true;
     }
@@ -184,7 +200,7 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
     <>
     <div className='game'>
         <h1 className='title'>Ultimate-Tic-Tac-Toe</h1>
-        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick}/>
+        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} isHovered={activeTiles}/>
     </div>
     </>
   );
