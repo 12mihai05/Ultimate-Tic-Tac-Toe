@@ -168,26 +168,31 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
     const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
 
     //!!!
-    //cam asa cred ca ar trebui sa arate for-ul ish
-    //in fiecare board in care este un castigator (smallGames[i] != null)
-    //tiles-urile trebuie sa fie false, in rest totul sa fie true
+    // If the board where the previous move was made is full (with X's and O's) and there is no winner:
+    // - The game would stop if you had to play in that full board, as there are no free tiles.
+    // - In this case, you should be allowed to make a move in any available tile across all boards.
+    // 
+    // The following code handles this situation:
+    // - If a board has been won and you need to make a move there, you can choose any free tile in the entire game.
 
-    // for(let i = 0; i <= 8; i++){
-    //     if(smallGames[i] != null){
-    //      for(let j = 0; j <= 8; j++){
-    //         newActiveTiles[j][i] = false;
-    //      }
-    //       if(index =! i){
-    //       newActiveTiles[i][index] = true;
-    //       }
-    //     }else{
-    //       newActiveTiles[i][index] = true;
-    //   }
-    // }
-
-    for(let i = 0; i <= 8; i++){
-      newActiveTiles[i][index] = true;
+    
+    // If the target board is full or won, allow moves in all non-won boards
+    if (smallGames[index] !== null || !newTiles[index].some(tile => tile === null)) {
+        // Enable all tiles in boards that are not won and not full
+        for (let i = 0; i < 9; i++) {
+            if (smallGames[i] === null && newTiles[i].some(tile => tile === null)) {
+                for (let j = 0; j < 9; j++) {
+                    newActiveTiles[j][i] = true;
+                }
+            }
+        }
+    } else {
+        // If the target board is still active, enable tiles only in the target board
+        for (let j = 0; j < 9; j++) {
+            newActiveTiles[j][index] = true;
+        }
     }
+
     setActiveTiles(newActiveTiles);
   }
 
