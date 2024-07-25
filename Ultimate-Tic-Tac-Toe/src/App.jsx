@@ -67,23 +67,31 @@ function App() {
     return Array.from({ length: 9 }, () => Array(9).fill(null));
   });
 
+  const [activeTiles, setActiveTiles] = useState(() => {
+    return Array.from({ length: 9 }, () => Array(9).fill(true));
+  });
+
   const [smallGames, setSmallGames] = useState(Array(9).fill(null));
 
   const [playerTurn, setPlayerTurn] = useState(Player_X);
+
+  const [isGameActive, setIsGameActive] = useState(true);
 
   const containerRef = useRef(null);
 
   let resetGame = () => {
     setSmallGames(Array(9).fill(null))
-    setTiles(() => {
-      return Array.from({ length: 9 }, () => Array(9).fill(null));
-    })
+    setTiles(() => Array.from({ length: 9 }, () => Array(9).fill(null)));
+
+    setActiveTiles(() => Array.from({ length: 9 }, () => Array(9).fill(true)));
 
     setTimeout(resetAnimation, 0);
 
     document.getElementsByClassName("title")[0].textContent = `Ultimate Tic Tac Toe`;
 
     setPlayerTurn(Player_X);
+
+    setIsGameActive(true);
   }
 
   const [scoreX, setScoreX] = useState(0);
@@ -132,6 +140,10 @@ function App() {
           setSmallGames={setSmallGames}
           playerTurn={playerTurn}
           setPlayerTurn={setPlayerTurn}
+          isGameActive={isGameActive}
+          setIsGameActive={setIsGameActive}
+          activeTiles={activeTiles}
+          setActiveTiles={setActiveTiles}
         />
         <div className='layout-2'>
           <Score scoreX={scoreX} scoreO={scoreO} />

@@ -131,7 +131,7 @@ function checkWinner(tiles, smallGames, setSmallGames) {
   }
 }
 
-function checkSmallGameWinner(smallGames, updateScore){
+function checkSmallGameWinner(smallGames, updateScore, setIsGameActive){
     for (const combo of baseCombinations) {
     const smallGame1 = smallGames[combo[0]];
     const smallGame2 = smallGames[combo[1]];
@@ -140,17 +140,18 @@ function checkSmallGameWinner(smallGames, updateScore){
     if(smallGame1 != null && smallGame1 === smallGame2 && smallGame1 === smallGame3){
       document.getElementsByClassName("title")[0].textContent = `${smallGame1} Wins!`;
       updateScore(smallGame1);
+      setIsGameActive(false);
     }
   }
 }
 
 
 
-function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTurn, setPlayerTurn }) {
+function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTurn, setPlayerTurn, isGameActive, setIsGameActive, activeTiles, setActiveTiles}) {
 
   const handleTileClick = (index, board) => {
 
-    if(tiles[index][board] !== null){
+    if(tiles[index][board] !== null || !activeTiles[index][board] || !isGameActive){
       return;
     }
 
@@ -164,22 +165,20 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
       setPlayerTurn(Player_X);
     }
 
+    const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
+    for(let i = 0; i <= 8; i++){
+      newActiveTiles[i][index] = true;
+    }
+    setActiveTiles(newActiveTiles);
   }
-
-
-
 
   useEffect(() => {
     checkWinner(tiles, smallGames, setSmallGames);
   }, [tiles])
 
   useEffect(() => {
-    checkSmallGameWinner(smallGames, updateScore);
-
-    //block all the tiles until the reset button is pressed
-    
+    checkSmallGameWinner(smallGames, updateScore, setIsGameActive);
   }, [smallGames]);
-
 
   return (
     <>
