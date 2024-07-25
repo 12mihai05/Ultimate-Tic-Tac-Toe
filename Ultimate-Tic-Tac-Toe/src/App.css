@@ -3,17 +3,17 @@ body {
   color: white;
   display: flex;
   justify-content: center;
-    align-items: center; /* Center vertically */
-    min-height: 85vh; /* Ensure body takes up full viewport height */
-    margin: 0; /* Remove default body margin */
-    overflow-x: hidden; /* Prevent scrollbars due to scaling */
+    align-items: center;
+    min-height: 85vh;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 #root{
   display: flex;
-  flex-wrap: nowrap; /* Ensure no wrapping */
-  overflow: hidden; /* Hide overflow if necessary */
-  transition: transform 0.3s ease; /* Smooth transition */
+  flex-wrap: nowrap;
+  overflow: hidden; 
+  transition: transform 0.3s ease;
   margin-right: 0px;
 }
 

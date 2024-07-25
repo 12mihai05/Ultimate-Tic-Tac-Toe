@@ -4,9 +4,6 @@ import Board from './Board'
 const Player_X = "X";
 const Player_O = "O";
 
-// export const [score_X, setScore_X] = useState(-2);
-// export const [score_O,setScore_O] = useState(0);
-
 const baseCombinations = [
   // Rows
   [0,1,2], [3,4,5], [6,7,8],
@@ -26,11 +23,8 @@ for (let board = 0; board <= 8; board++) {
   });
 }
 
-//console.log(winningCombinations)
-
 
 function checkWinner(tiles, smallGames, setSmallGames) {
-  // Loop through each board
   for (let board = 0; board <= 8; board++) {
     for (const combo of baseCombinations) {
       const tileValue1 = tiles[combo[0]][board];
@@ -38,20 +32,13 @@ function checkWinner(tiles, smallGames, setSmallGames) {
       const tileValue3 = tiles[combo[2]][board];
 
       if (tileValue1 != null && tileValue1 === tileValue2 && tileValue1 === tileValue3) {
-        // document.getElementsByClassName("title")[0].textContent = `${tileValue1} Wins!`;
         const boardElement = document.getElementsByClassName(`board-${board}`)[0];
 
         const newSmallGames = [...smallGames];
         newSmallGames[board] = tileValue1;
         setSmallGames(newSmallGames);
 
-        // console.log(smallGames);
-        // console.log(smallGame1 + " " + smallGame2 + " " + smallGame3)
-
-        //console.log(`board-${board}`)
-
         if (boardElement) {
-          // Now you can manipulate the style of the board element
           const lineV3 = boardElement.querySelectorAll('.v-line-3');
           const lineV4 = boardElement.querySelectorAll('.v-line-4');
 
@@ -144,40 +131,24 @@ function checkWinner(tiles, smallGames, setSmallGames) {
   }
 }
 
-function checkSmallGameWinner(smallGames, {updateScore}){
+function checkSmallGameWinner(smallGames, updateScore){
     for (const combo of baseCombinations) {
     const smallGame1 = smallGames[combo[0]];
     const smallGame2 = smallGames[combo[1]];
     const smallGame3 = smallGames[combo[2]];
-
-    console.log(smallGame1 + " " + smallGame2 + " " + smallGame3)
 
     if(smallGame1 != null && smallGame1 === smallGame2 && smallGame1 === smallGame3){
       document.getElementsByClassName("title")[0].textContent = `${smallGame1} Wins!`;
       updateScore(smallGame1);
     }
   }
-  //console.log( Score_X + " " + Score_O)
 }
 
 
 
-function Game({updateScore}) {
-  
-  const [tiles, setTiles] = useState(() => {
-    // Create a 9x9 matrix
-    return Array.from({ length: 9 }, () => Array(9).fill(null));
-  });
-
-  const [smallGames, setSmallGames] = useState(Array(9).fill(null));
-
-  //console.log(tiles)
-  const [playerTurn, setPlayerTurn] = useState(Player_X);
-
-
+function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTurn, setPlayerTurn }) {
 
   const handleTileClick = (index, board) => {
-    //console.log(index + " " + board);
 
     if(tiles[index][board] !== null){
       return;
@@ -203,7 +174,10 @@ function Game({updateScore}) {
   }, [tiles])
 
   useEffect(() => {
-    checkSmallGameWinner(smallGames, {updateScore});
+    checkSmallGameWinner(smallGames, updateScore);
+
+    //block all the tiles until the reset button is pressed
+    
   }, [smallGames]);
 
 

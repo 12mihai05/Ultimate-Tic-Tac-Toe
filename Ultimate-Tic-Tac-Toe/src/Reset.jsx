@@ -1,8 +1,9 @@
+import React from "react";
 
-function Reset(){
+function Reset({resetGame}){
 
     return(
-        <div className="reset-btn">
+        <div className="reset-btn" onClick={resetGame}>
             Reset Game
         </div>
     );
