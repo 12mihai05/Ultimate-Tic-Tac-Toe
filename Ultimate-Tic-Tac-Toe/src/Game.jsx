@@ -168,12 +168,15 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
     const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
 
     //!!!
-    //after winning a small game you can still play there
+    //cam asa cred ca ar trebui sa arate for-ul ish
+    //in fiecare board in care este un castigator (smallGames[i] != null)
+    //tiles-urile trebuie sa fie false, in rest totul sa fie true
 
     // for(let i = 0; i <= 8; i++){
     //     if(smallGames[i] != null){
-    //       if(index != i)
-    //         newActiveTiles[i][i] = false;
+    //      for(let j = 0; j <= 8; j++){
+    //         newActiveTiles[j][i] = false;
+    //      }
     //       if(index =! i){
     //       newActiveTiles[i][index] = true;
     //       }
