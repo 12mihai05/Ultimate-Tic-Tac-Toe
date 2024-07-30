@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Board from './Board'
 
 const Player_X = "X";
@@ -27,9 +27,9 @@ for (let board = 0; board <= 8; board++) {
 function checkWinner(tiles, smallGames, setSmallGames) {
   for (let board = 0; board <= 8; board++) {
     for (const combo of baseCombinations) {
-      const tileValue1 = tiles[combo[0]][board];
-      const tileValue2 = tiles[combo[1]][board];
-      const tileValue3 = tiles[combo[2]][board];
+      const tileValue1 = tiles[board][combo[0]];
+      const tileValue2 = tiles[board][combo[1]];
+      const tileValue3 = tiles[board][combo[2]];
 
       if (tileValue1 != null && tileValue1 === tileValue2 && tileValue1 === tileValue3) {
         const boardElement = document.getElementsByClassName(`board-${board}`)[0];
@@ -149,14 +149,14 @@ function checkSmallGameWinner(smallGames, updateScore, setIsGameActive){
 
 function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTurn, setPlayerTurn, isGameActive, setIsGameActive, activeTiles, setActiveTiles}) {
 
-  const handleTileClick = (index, board) => {
+  const handleTileClick = (board, index) => {
 
-    if(tiles[index][board] !== null || !activeTiles[index][board] || !isGameActive){
+    if(tiles[board][index] !== null || !activeTiles[board][index] || !isGameActive){
       return;
     }
 
       const newTiles = [...tiles];
-      newTiles[index][board] = playerTurn;
+      newTiles[board][index] = playerTurn;
       setTiles(newTiles)
 
     if(playerTurn === Player_X){
@@ -167,29 +167,17 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
 
     const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
 
-    //!!!
-    // If the board where the previous move was made is full (with X's and O's) and there is no winner:
-    // - The game would stop if you had to play in that full board, as there are no free tiles.
-    // - In this case, you should be allowed to make a move in any available tile across all boards.
-    // 
-    // The following code handles this situation:
-    // - If a board has been won and you need to make a move there, you can choose any free tile in the entire game.
-
-    
-    // If the target board is full or won, allow moves in all non-won boards
     if (smallGames[index] !== null || !newTiles[index].some(tile => tile === null)) {
-        // Enable all tiles in boards that are not won and not full
         for (let i = 0; i < 9; i++) {
             if (smallGames[i] === null && newTiles[i].some(tile => tile === null)) {
                 for (let j = 0; j < 9; j++) {
-                    newActiveTiles[j][i] = true;
+                    newActiveTiles[i][j] = true;
                 }
             }
         }
     } else {
-        // If the target board is still active, enable tiles only in the target board
         for (let j = 0; j < 9; j++) {
-            newActiveTiles[j][index] = true;
+            newActiveTiles[index][j] = true;
         }
     }
 
@@ -198,6 +186,7 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
 
   useEffect(() => {
     checkWinner(tiles, smallGames, setSmallGames);
+    console.log(tiles)
   }, [tiles])
 
   useEffect(() => {

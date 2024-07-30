@@ -3,16 +3,15 @@ import Tile from './Tile.jsx';
 import './Lines.css';
 
 function Board({ tiles, onTileClick, playerTurn, isHovered }) {
-    // Helper function to render a row of tiles
     const renderTiles = (boardIndex) => (
         Array.from({ length: 9 }, (_, index) => (
             <Tile
-                key={`tile-${index}-${boardIndex}`}
+                key={`tile-${boardIndex}-${index}`}
                 playerTurn={playerTurn}
-                onClick={() => onTileClick(index, boardIndex)}
+                onClick={() => onTileClick(boardIndex, index)}
                 index={index}
                 board={boardIndex}
-                value={tiles[index][boardIndex]}
+                value={tiles[boardIndex][index]}
                 isHovered={isHovered}
             />
         ))

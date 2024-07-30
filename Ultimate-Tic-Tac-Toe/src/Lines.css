@@ -118,9 +118,6 @@
     }
   }
 
-
-
-
   .h-line-3{
     top: calc(32%);
   }
@@ -138,7 +135,6 @@
     animation:  1s forwards;
     animation-name: h-line-4;
   }
-
 
   @keyframes h-line-3 {
     from {top: calc(32%);
