@@ -47,10 +47,10 @@ h3{
 }
 
 
-@media (max-width: 1001px){
+@media (max-width: 1005px){
     .score-board{
         width: 350px;
-        height: 60px;
+        height: 70px;
         display: flex;
         flex-direction: column;
         border: 3px solid rgb(45, 137, 223);
@@ -74,7 +74,9 @@ h3{
         background-color: hsl(219, 41%, 23%);
         border-bottom: 2px solid rgb(45, 137, 223);
         border-bottom-right-radius: 20px;
-        border-bottom-left-radius: 20px ;
+        border-bottom-left-radius: 20px;
+        margin-top: 4px;
+        padding-bottom: 5px;
     }
 
     .line-1, .line-2{

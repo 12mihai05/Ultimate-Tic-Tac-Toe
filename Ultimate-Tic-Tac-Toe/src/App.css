@@ -4,18 +4,21 @@ body {
   color: white;
   display: flex;
   justify-content: center;
-    align-items: center;
-    min-height: 85vh;
-    margin: 0;
-    overflow-x: hidden;
+  align-items: center;
+  min-height: 85vh;
+  margin: 0;
+  overflow-x: hidden;
 }
 
 #root{
   display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
   overflow: hidden; 
   transition: transform 0.3s ease;
   margin-right: 0px;
+  justify-content: start;
+  height: 100vh;
 }
 
 .layout{
@@ -23,10 +26,10 @@ body {
   flex-direction: row;
   padding-right: 30px;
   padding-left: 30px;
-  flex-wrap: wrap;
-  align-content: center;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  gap: 7vw;
 }
 
 .layout-2{
@@ -39,6 +42,8 @@ body {
 
 .title{
   text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 8vw;
 }
 
 .game{
@@ -85,7 +90,7 @@ body {
   width: 130px;
   height: 40px;
   background-color: rgb(45, 137, 223);
-  margin-top: 10px;
+  margin-top: 25px;
   border-radius: 20px;
   border: 2px solid hsl(204, 68%, 65%);
   text-align: center;
@@ -95,9 +100,16 @@ body {
   cursor: pointer;
 }
 
-@media (max-width: 1001px){
+@media (max-width: 1005px){
   .layout-2{
     margin-left: 0px;
+    gap: 2vw;
+  }
+
+  .layout{
+    gap: 0px;
+    flex-wrap: wrap;
+    gap: 5vw;
   }
 }
 

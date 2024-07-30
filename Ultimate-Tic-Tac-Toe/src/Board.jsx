@@ -2,7 +2,7 @@ import React from 'react';
 import Tile from './Tile.jsx';
 import './Lines.css';
 
-function Board({ tiles, onTileClick, playerTurn, isHovered }) {
+function Board({ tiles, onTileClick, playerTurn, isHovered, isGameActive }) {
     const renderTiles = (boardIndex) => (
         Array.from({ length: 9 }, (_, index) => (
             <Tile
@@ -13,6 +13,7 @@ function Board({ tiles, onTileClick, playerTurn, isHovered }) {
                 board={boardIndex}
                 value={tiles[boardIndex][index]}
                 isHovered={isHovered}
+                isGameActive={isGameActive}
             />
         ))
     );

@@ -104,6 +104,8 @@ function App() {
       setScoreO((scoreO) => scoreO + 1);
     }
   };
+
+ 
   
 
   useEffect(() => {
@@ -131,7 +133,9 @@ function App() {
   }, []);
 
   return (
-      <div className='layout' ref={containerRef}>
+    <div ref={containerRef}>
+      <h1 className='title'>Ultimate-Tic-Tac-Toe</h1>
+      <div className='layout'>
         <Game
           updateScore={updateScore}
           tiles={tiles}
@@ -148,6 +152,7 @@ function App() {
         <div className='layout-2'>
           <Score scoreX={scoreX} scoreO={scoreO} />
           <Reset resetGame={resetGame}/>
+        </div>
       </div>
     </div>
   );

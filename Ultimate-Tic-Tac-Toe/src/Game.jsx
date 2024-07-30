@@ -24,7 +24,7 @@ for (let board = 0; board <= 8; board++) {
 }
 
 
-function checkWinner(tiles, smallGames, setSmallGames) {
+function checkSmallGameWinner(tiles, smallGames, setSmallGames) {
   for (let board = 0; board <= 8; board++) {
     for (const combo of baseCombinations) {
       const tileValue1 = tiles[board][combo[0]];
@@ -131,7 +131,7 @@ function checkWinner(tiles, smallGames, setSmallGames) {
   }
 }
 
-function checkSmallGameWinner(smallGames, updateScore, setIsGameActive){
+function checkWinner(smallGames, updateScore, setIsGameActive){
     for (const combo of baseCombinations) {
     const smallGame1 = smallGames[combo[0]];
     const smallGame2 = smallGames[combo[1]];
@@ -141,6 +141,7 @@ function checkSmallGameWinner(smallGames, updateScore, setIsGameActive){
       document.getElementsByClassName("title")[0].textContent = `${smallGame1} Wins!`;
       updateScore(smallGame1);
       setIsGameActive(false);
+      break;
     }
   }
 }
@@ -150,54 +151,67 @@ function checkSmallGameWinner(smallGames, updateScore, setIsGameActive){
 function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTurn, setPlayerTurn, isGameActive, setIsGameActive, activeTiles, setActiveTiles}) {
 
   const handleTileClick = (board, index) => {
-
-    if(tiles[board][index] !== null || !activeTiles[board][index] || !isGameActive){
+    if (tiles[board][index] !== null || !activeTiles[board][index] || !isGameActive) {
       return;
     }
-
-      const newTiles = [...tiles];
-      newTiles[board][index] = playerTurn;
-      setTiles(newTiles)
-
-    if(playerTurn === Player_X){
+  
+    const newTiles = [...tiles];
+    newTiles[board][index] = playerTurn;
+    setTiles(newTiles);
+  
+    if (playerTurn === Player_X) {
       setPlayerTurn(Player_O);
-    }else{
+    } else {
       setPlayerTurn(Player_X);
     }
-
-    const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
-
-    if (smallGames[index] !== null || !newTiles[index].some(tile => tile === null)) {
-        for (let i = 0; i < 9; i++) {
-            if (smallGames[i] === null && newTiles[i].some(tile => tile === null)) {
-                for (let j = 0; j < 9; j++) {
-                    newActiveTiles[i][j] = true;
-                }
-            }
-        }
-    } else {
-        for (let j = 0; j < 9; j++) {
-            newActiveTiles[index][j] = true;
-        }
+  
+    const newSmallGames = [...smallGames];
+    for (const combo of baseCombinations) {
+      const [a, b, c] = combo;
+      if (
+        newTiles[board][a] &&
+        newTiles[board][a] === newTiles[board][b] &&
+        newTiles[board][a] === newTiles[board][c]
+      ) {
+        newSmallGames[board] = newTiles[board][a];
+        setSmallGames(newSmallGames);
+        break;
+      }
     }
-
+  
+    const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
+    
+    if (newSmallGames[index] !== null || newSmallGames[board] !== null || !newTiles[board].some(tile => tile === null)) {
+      for (let i = 0; i < 9; i++) {
+        if (newSmallGames[i] === null && newTiles[i].some(tile => tile === null)) {
+          for (let j = 0; j < 9; j++) {
+            newActiveTiles[i][j] = true;
+          }
+        }
+      }
+    } else {
+      for (let j = 0; j < 9; j++) {
+        newActiveTiles[index][j] = true;
+      }
+    }
+  
     setActiveTiles(newActiveTiles);
-  }
-
+  };
+  
+if(isGameActive){
   useEffect(() => {
-    checkWinner(tiles, smallGames, setSmallGames);
-    console.log(tiles)
+    checkSmallGameWinner(tiles, smallGames, setSmallGames);
   }, [tiles])
 
   useEffect(() => {
-    checkSmallGameWinner(smallGames, updateScore, setIsGameActive);
+    checkWinner(smallGames, updateScore, setIsGameActive);
   }, [smallGames]);
+}
 
   return (
     <>
     <div className='game'>
-        <h1 className='title'>Ultimate-Tic-Tac-Toe</h1>
-        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} isHovered={activeTiles}/>
+        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} isHovered={activeTiles} isGameActive={isGameActive}/>
     </div>
     </>
   );
