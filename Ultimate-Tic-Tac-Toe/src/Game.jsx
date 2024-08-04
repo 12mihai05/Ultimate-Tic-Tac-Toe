@@ -161,7 +161,6 @@ function checkForDraw(smallGames, tiles, setIsGameActive,isDraw, setDraw){
 
   if (isDraw) {
     setDraw(true);
-    setIsGameActive(false);
     document.getElementsByClassName("title")[0].textContent = `Draw`;
   }
 }
@@ -203,7 +202,7 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
   
     const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
     
-    if (newSmallGames[index] !== null || (newSmallGames[board] !== null && board === index) || !newTiles[board].some(tile => tile === null) || newTiles[index].every(tile => tile !== null)) {
+    if (newSmallGames[index] !== null || (newSmallGames[board] !== null && board === index) || !newTiles[index].some(tile => tile === null) || newTiles[index].every(tile => tile !== null)) {
       for (let i = 0; i < 9; i++) {
         if (newSmallGames[i] === null && newTiles[i].some(tile => tile === null)) {
           for (let j = 0; j < 9; j++) {
