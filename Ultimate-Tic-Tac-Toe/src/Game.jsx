@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Board from './Board'
 
 const Player_X = "X";
@@ -146,9 +146,31 @@ function checkWinner(smallGames, updateScore, setIsGameActive){
   }
 }
 
+function checkForDraw(smallGames, tiles, setIsGameActive,isDraw, setDraw){
+
+  // Assume initially the game is a draw until proven otherwise
+  setDraw(true);
+
+  for (let i = 0; i < 9; i++) {
+    // If a board is not won and has empty spaces, it's not a draw
+    if (smallGames[i] === null && tiles[i].some(tile => tile === null)) {
+      isDraw = false;
+      break;
+    }
+  }
+
+  if (isDraw) {
+    setDraw(true);
+    setIsGameActive(false);
+    document.getElementsByClassName("title")[0].textContent = `Draw`;
+  }
+}
+
 
 
 function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTurn, setPlayerTurn, isGameActive, setIsGameActive, activeTiles, setActiveTiles}) {
+
+  const [isDraw, setDraw] = useState(false);
 
   const handleTileClick = (board, index) => {
     if (tiles[board][index] !== null || !activeTiles[board][index] || !isGameActive) {
@@ -181,7 +203,7 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
   
     const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
     
-    if (newSmallGames[index] !== null || (newSmallGames[board] !== null && board === index) || !newTiles[board].some(tile => tile === null)) {
+    if (newSmallGames[index] !== null || (newSmallGames[board] !== null && board === index) || !newTiles[board].some(tile => tile === null) || newTiles[index].every(tile => tile !== null)) {
       for (let i = 0; i < 9; i++) {
         if (newSmallGames[i] === null && newTiles[i].some(tile => tile === null)) {
           for (let j = 0; j < 9; j++) {
@@ -201,11 +223,17 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
 if(isGameActive){
   useEffect(() => {
     checkSmallGameWinner(tiles, smallGames, setSmallGames);
+    // checkForDraw(smallGames, tiles, setIsGameActive, draw, setDraw);
   }, [tiles])
 
   useEffect(() => {
     checkWinner(smallGames, updateScore, setIsGameActive);
+    // checkForDraw(smallGames, tiles, setIsGameActive, setDraw);
   }, [smallGames]);
+
+  useEffect(() => {
+    checkForDraw(smallGames, tiles, setIsGameActive, isDraw, setDraw);
+  }, [tiles])
 }
 
   return (
