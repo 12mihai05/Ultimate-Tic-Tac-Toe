@@ -219,21 +219,17 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
     setActiveTiles(newActiveTiles);
   };
   
-if(isGameActive){
-  useEffect(() => {
-    checkSmallGameWinner(tiles, smallGames, setSmallGames);
-    // checkForDraw(smallGames, tiles, setIsGameActive, draw, setDraw);
-  }, [tiles])
+  if(isGameActive){
+    useEffect(() => {
+      checkSmallGameWinner(tiles, smallGames, setSmallGames);
+      checkForDraw(smallGames, tiles, setIsGameActive, isDraw, setDraw);
+    }, [tiles])
 
-  useEffect(() => {
-    checkWinner(smallGames, updateScore, setIsGameActive);
-    // checkForDraw(smallGames, tiles, setIsGameActive, setDraw);
-  }, [smallGames]);
+    useEffect(() => {
+      checkWinner(smallGames, updateScore, setIsGameActive);
+    }, [smallGames]);
 
-  useEffect(() => {
-    checkForDraw(smallGames, tiles, setIsGameActive, isDraw, setDraw);
-  }, [tiles])
-}
+  }
 
   return (
     <>

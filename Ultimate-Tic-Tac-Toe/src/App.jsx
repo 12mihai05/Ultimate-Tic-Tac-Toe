@@ -67,28 +67,6 @@ function App() {
     return Array.from({ length: 9 }, () => Array(9).fill(null));
   });
 
-  // const [tiles, setTiles] = useState(() => {
-  //   return Array.from({ length: 9 }, (_, boardIndex) => {
-  //     // Create a full board that doesn't have a winning combination
-  //     const board = Array(9).fill(null);
-      
-  //     // Example pattern for a draw (alternating X and O)
-  //     const drawPattern = [
-  //       [null, 'O', 'X', 'O', 'X', 'O', 'O', 'X', 'X'],
-  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', null],
-  //       [null, null, null, null, null, null, null, null, null],
-  //       [null, null, null, null, null, null, null, null, null],
-  //       [null, null, null, null, null, null, null, null, null],
-  //       [null, null, null, null, null, null, null, null, null],
-  //       [null, null, null, null, null, null, null, null, null],
-  //       [null, null, null, null, null, null, null, null, null],
-  //       [null, null, null, null, null, null, null, null, null],
-  //     ];
-  
-  //     return drawPattern[boardIndex];
-  //   });
-  // });
-
   const [activeTiles, setActiveTiles] = useState(() => {
     return Array.from({ length: 9 }, () => Array(9).fill(true));
   });
