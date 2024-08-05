@@ -50,6 +50,7 @@ body {
 .game{
   display: flex;
   flex-direction: column;
+  margin: 0px 50px;
 }
 
 .big-board {
@@ -87,6 +88,10 @@ body {
   opacity: 0.4;
 }
 
+.board-hover{
+  background-color: red;
+}
+
 .reset-btn{
   width: 130px;
   height: 40px;
@@ -117,3 +122,12 @@ body {
 .no-pointer{
   cursor: default;
 }
+
+/* 
+  @media (max-width: 768px) {
+    #root {
+        width: auto;
+        scale: calc(0.85);
+        
+    }
+} */

@@ -67,6 +67,26 @@ function App() {
     return Array.from({ length: 9 }, () => Array(9).fill(null));
   });
 
+  // const [tiles, setTiles] = useState(() => {
+  //   return Array.from({ length: 9 }, (_, boardIndex) => {
+  //     const board = Array(9).fill(null);
+      
+  //     const drawPattern = [
+  //       ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', 'X'],
+  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
+  //       ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', 'X'],
+  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
+  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
+  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
+  //       ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', 'X'],
+  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
+  //       ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', null],
+  //     ];
+  
+  //     return drawPattern[boardIndex];
+  //   });
+  // });
+
   const [activeTiles, setActiveTiles] = useState(() => {
     return Array.from({ length: 9 }, () => Array(9).fill(true));
   });
@@ -112,28 +132,35 @@ function App() {
     const adjustScale = () => {
       const container = containerRef.current;
       if (!container) return;
-
+  
       const windowWidth = window.innerWidth;
-    const containerWidth = container.scrollWidth;
-
-      if (windowWidth < 768) {
-      const scale = (windowWidth / containerWidth) * 0.99999;
-      container.style.transform = `scale(${Math.min(scale, 1)})`;
-      container.style.transformOrigin = 'top left';
-      container.style.width = `${containerWidth}px`;
-      }else {
+      const containerWidth = container.scrollWidth;
+  
+      if (windowWidth <= 768) {
+        // Increase margin by using a slightly smaller scale factor
+        const scale = Math.min((windowWidth * 0.7) / 430, 1);
+        container.style.transform = `scale(${scale})`;
+        container.style.transformOrigin = 'top';
+        // container.style.width = `${containerWidth}px`;
+      } else {
+        // Reset scale and width for larger screens
         container.style.transform = 'scale(1)';
         container.style.width = '100%';
       }
     };
-
+  
+    // Attach the resize event listener
     window.addEventListener('resize', adjustScale);
+    // Initial adjustment
     adjustScale();
-
+  
+    // Cleanup on component unmount
+    return () => window.removeEventListener('resize', adjustScale);
   }, []);
+  
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className='container'>
       <h1 className='title'>Ultimate-Tic-Tac-Toe</h1>
       <div className='layout'>
         <Game
