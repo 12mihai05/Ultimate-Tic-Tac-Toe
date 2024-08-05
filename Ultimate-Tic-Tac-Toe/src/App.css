@@ -89,7 +89,7 @@ body {
 }
 
 .board-hover{
-  background-color: red;
+  background-color: hsl(220, 30%, 23%);
 }
 
 .reset-btn{

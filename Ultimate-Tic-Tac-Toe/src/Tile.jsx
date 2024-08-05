@@ -3,11 +3,9 @@ function Tile({ value, onClick, playerTurn, isHovered, index, board, isGameActiv
   let boardClass = null;
   if (value == null && playerTurn != null) {
     hoverClass = isHovered[board][index] && isGameActive ? `${playerTurn.toLowerCase()}-hover` : 'no-pointer';
-    
+    const windowWidth = window.innerWidth;
+    if(windowWidth <= 768)
     boardClass = isHovered[board][index] && isGameActive ? `board-hover` : 'no-pointer';
-
-     
-    
   }
 
   return (
