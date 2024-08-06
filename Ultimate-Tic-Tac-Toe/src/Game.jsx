@@ -149,11 +149,9 @@ function checkWinner(smallGames, updateScore, setIsGameActive){
 
 function checkForDraw(smallGames, tiles, setIsGameActive,isDraw, setDraw){
 
-  // Assume initially the game is a draw until proven otherwise
   setDraw(true);
 
   for (let i = 0; i < 9; i++) {
-    // If a board is not won and has empty spaces, it's not a draw
     if (smallGames[i] === null && tiles[i].some(tile => tile === null)) {
       isDraw = false;
       break;
@@ -162,6 +160,7 @@ function checkForDraw(smallGames, tiles, setIsGameActive,isDraw, setDraw){
 
   if (isDraw) {
     setDraw(true);
+    setIsGameActive(false);
     document.getElementsByClassName("title")[0].textContent = `Draw`;
   }
 }
@@ -228,11 +227,6 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
       checkWinner(smallGames, updateScore, setIsGameActive);
       }
     }, [tiles]);
-
-    // useEffect(() => {
-    //   checkWinner(smallGames, updateScore, setIsGameActive);
-    //   console.log("bbbbbbb");
-    // }, [smallGames]);
   }
 
   return (

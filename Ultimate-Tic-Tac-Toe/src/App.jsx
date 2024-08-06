@@ -134,27 +134,28 @@ function App() {
       if (!container) return;
   
       const windowWidth = window.innerWidth;
-      const containerWidth = container.scrollWidth;
-  
-      if (windowWidth <= 768) {
-        // Increase margin by using a slightly smaller scale factor
-        const scale = Math.min((windowWidth * 0.7) / 430, 1);
+
+      if (windowWidth <= 600) {
+        const scale = Math.min((windowWidth * 0.7) / 468, 0.9);
         container.style.transform = `scale(${scale})`;
         container.style.transformOrigin = 'top';
-        // container.style.width = `${containerWidth}px`;
-      } else {
-        // Reset scale and width for larger screens
+        console.log(scale)
+      } 
+      else if (windowWidth >= 600 && windowWidth <= 1115) {
+        const scale = Math.min((windowWidth * 0.37) / 468, 1);
+        container.style.transform = `scale(${0.9})`;
+        container.style.transformOrigin = 'top';
+        console.log(scale)
+      }
+      else{
         container.style.transform = 'scale(1)';
         container.style.width = '100%';
       }
     };
   
-    // Attach the resize event listener
     window.addEventListener('resize', adjustScale);
-    // Initial adjustment
     adjustScale();
   
-    // Cleanup on component unmount
     return () => window.removeEventListener('resize', adjustScale);
   }, []);
   

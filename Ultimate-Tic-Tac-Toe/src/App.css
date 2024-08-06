@@ -7,18 +7,18 @@ body {
   align-items: center;
   min-height: 85vh;
   margin: 0;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #root{
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  overflow: hidden; 
   transition: transform 0.3s ease;
   margin-right: 0px;
   justify-content: start;
-  height: 100vh;
+  height: auto;
+  overflow: hidden;
 }
 
 .layout{
@@ -106,7 +106,7 @@ body {
   cursor: pointer;
 }
 
-@media (max-width: 1005px){
+@media (max-width: 1115px){
   .layout-2{
     margin-left: 0px;
     gap: 2vw;
@@ -115,7 +115,7 @@ body {
   .layout{
     gap: 0px;
     flex-wrap: wrap;
-    gap: 5vw;
+    gap: 10px;
   }
 }
 
@@ -123,11 +123,14 @@ body {
   cursor: default;
 }
 
-/* 
-  @media (max-width: 768px) {
-    #root {
-        width: auto;
-        scale: calc(0.85);
-        
-    }
-} */
+@media (max-width: 389px){
+  .title{
+    font-size: 2.3em;
+  }
+}
+
+@media (max-height: 720px){
+  body{
+    overflow-y: visible;
+  }
+}

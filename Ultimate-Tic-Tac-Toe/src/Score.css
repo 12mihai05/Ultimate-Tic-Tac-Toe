@@ -17,7 +17,6 @@
 
 h4{
     margin-left: 65px;
-
     font-size: small;
 }
 
@@ -47,7 +46,7 @@ h3{
 }
 
 
-@media (max-width: 1005px){
+@media (max-width: 1115px){
     .score-board{
         width: 350px;
         height: 70px;
