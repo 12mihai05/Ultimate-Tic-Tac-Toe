@@ -141,7 +141,6 @@ function checkWinner(smallGames, updateScore, setIsGameActive){
       document.getElementsByClassName("title")[0].textContent = `${smallGame1} Wins!`;
       updateScore(smallGame1);
       setIsGameActive(false);
-      console.log("aaaaa");
       break;
     }
   }
@@ -160,7 +159,6 @@ function checkForDraw(smallGames, tiles, setIsGameActive,isDraw, setDraw){
 
   if (isDraw) {
     setDraw(true);
-    setIsGameActive(false);
     document.getElementsByClassName("title")[0].textContent = `Draw`;
   }
 }
@@ -219,7 +217,7 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
     setActiveTiles(newActiveTiles);
   };
   
-  if(isGameActive){
+
     useEffect(() => {
       if(isGameActive){
       checkSmallGameWinner(tiles, smallGames, setSmallGames);
@@ -227,7 +225,6 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
       checkWinner(smallGames, updateScore, setIsGameActive);
       }
     }, [tiles]);
-  }
 
   return (
     <>

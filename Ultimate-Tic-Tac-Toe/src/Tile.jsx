@@ -3,17 +3,13 @@ function Tile({ value, onClick, playerTurn, isHovered, index, board, isGameActiv
   const isMobileDevice = () =>
     /android|iphone|ipad|ipod|blackberry|windows phone|opera mini|mobile/i.test(navigator.userAgent || navigator.vendor || window.opera);
 
-  // Arrow function to determine the board class
-  const getBoardClass = () => {
-    const windowWidth = window.innerWidth;
-    if (windowWidth <= 768 && isMobileDevice()) {
-      return isHovered[board][index] && isGameActive ? `board-hover` : 'no-pointer';
-    }
-    return null;
-  };
 
   let hoverClass = null;
-  let boardClass = getBoardClass();
+  let boardClass = null;
+
+  if(isMobileDevice()){
+    boardClass = isHovered[board][index] && isGameActive ? `board-hover` : 'no-pointer';
+  }
 
   if (value == null && playerTurn != null) {
     hoverClass = isHovered[board][index] && isGameActive ? `${playerTurn.toLowerCase()}-hover` : 'no-pointer';

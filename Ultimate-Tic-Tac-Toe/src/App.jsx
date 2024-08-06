@@ -139,13 +139,11 @@ function App() {
         const scale = Math.min((windowWidth * 0.7) / 468, 0.9);
         container.style.transform = `scale(${scale})`;
         container.style.transformOrigin = 'top';
-        console.log(scale)
       } 
       else if (windowWidth >= 600 && windowWidth <= 1115) {
         const scale = Math.min((windowWidth * 0.37) / 468, 1);
         container.style.transform = `scale(${0.9})`;
         container.style.transformOrigin = 'top';
-        console.log(scale)
       }
       else{
         container.style.transform = 'scale(1)';
