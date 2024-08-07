@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Game from './Game.jsx';
 import Score from './Score.jsx';
 import Reset from './Reset.jsx';
+import Rules from "./Rules.jsx"
 import './App.css';
 
 const Player_X = "X";
@@ -180,6 +181,7 @@ function App() {
           <Reset resetGame={resetGame}/>
         </div>
       </div>
+      <Rules/>
     </div>
   );
 }

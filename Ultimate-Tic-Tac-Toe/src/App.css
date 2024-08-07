@@ -7,7 +7,6 @@ body {
   align-items: center;
   min-height: 85vh;
   margin: 0;
-  overflow: hidden;
 }
 
 #root{
@@ -133,4 +132,51 @@ body {
   body{
     overflow-y: visible;
   }
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+.rules{
+  margin-top: 80px;
+  padding: 10px;
+  padding-left:30px;
+  padding-right: 30px;
+  border-radius: 30px;
+  background-color: hsl(219, 41%, 23%);
+  border:  3px solid rgb(45, 137, 223) ;
+  max-width: 700px;
+  align-self: center;
+}
+
+summary {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  list-style: none;
+  text-align: center;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+
+summary::before {
+  content: "\27A4";
+  display: inline-block;
+  margin-right: 10px;
+  color: white;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+
+details[open] summary::before {
+  content: "\27A4";
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+  color: white;
 }

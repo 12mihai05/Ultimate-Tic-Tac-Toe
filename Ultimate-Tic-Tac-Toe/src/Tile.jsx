@@ -21,3 +21,4 @@ function Tile({ value, onClick, playerTurn, isHovered, index, board, isGameActiv
 }
 
 export default Tile;
+
