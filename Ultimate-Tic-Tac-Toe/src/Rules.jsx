@@ -1,3 +1,4 @@
+import "./Rules.css"
 
 function Rules(){
 
@@ -8,18 +9,18 @@ function Rules(){
             <div className="content">
             <ol>
                 <li>
-                    Game Structure:
+                    <h3>Game Structure:</h3>
                     <ul>
                         <li>
                         The game consists of 9 smaller Tic Tac Toe 
-                        boards arranged in a 3x3 grid,forming one 
+                        boards arranged in a 3x3 grid, forming one 
                         large Ultimate Board.
                         </li>
                     </ul>
                 </li>
                 
                 <li>
-                    Move Determination:
+                    <h3>Move Determination:</h3>
                     <ul>
                         <li>
                         The cell a player chooses within a smaller board 
@@ -33,7 +34,7 @@ function Rules(){
                 </li>
 
                 <li>
-                    Winning a Smaller Board:
+                    <h3>Winning a Smaller Board:</h3>
                     <ul>
                         <li>
                         A player wins a smaller board by getting three of 
@@ -44,7 +45,7 @@ function Rules(){
                 </li>
 
                 <li>
-                    Winning the Ultimate Board:
+                    <h3>Winning the Ultimate Board:</h3>
                     <ul>
                         <li>
                         The game is won by the first player to win three 
@@ -55,7 +56,7 @@ function Rules(){
                 </li>
 
                 <li>
-                    Forced Moves:
+                    <h3>Forced Moves:</h3>
                     <ul>
                         <li>
                         If a player is sent to a smaller board that has 
@@ -67,7 +68,7 @@ function Rules(){
                 </li>
 
                 <li>
-                    Draws:
+                    <h3>Draws:</h3>
                     <ul>
                         <li>
                         If all 81 cells are filled and neither player has 
