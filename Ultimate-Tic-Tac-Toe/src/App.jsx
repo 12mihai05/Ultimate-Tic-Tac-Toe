@@ -134,9 +134,6 @@ function App() {
     }
   };
 
- 
-  
-
   useEffect(() => {
     const adjustScale = () => {
       const container = containerRef.current;
@@ -165,7 +162,17 @@ function App() {
   
     return () => window.removeEventListener('resize', adjustScale);
   }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
   
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
 
   return (
     <div ref={containerRef} className='container'>
