@@ -27,6 +27,7 @@ Ultimate Tic Tac Toe is a more complex version of the classic Tic Tac Toe. Here'
 - **Scoring System**: A scoring system tracks the number of wins for each player.
 - **Reset Functionality**: A reset button allows players to restart the game at any point, clearing the board and resetting the scores.
 - **Rules Explanation**: A detailed section explaining the rules of the game is included, accessible through a collapsible details element.
+- **Page Reload Warning**: To prevent accidental clearing of the scoreboard, the game features a mechanism that warns users if they attempt to reload or exit the page. This provides a prompt to confirm their action, helping to avoid unintentional loss of their score and progress.
 
 ## Project Structure
 
