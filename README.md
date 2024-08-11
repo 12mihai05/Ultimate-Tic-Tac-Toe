@@ -8,16 +8,16 @@ This project is a web-based version of the Ultimate Tic Tac Toe game, developed 
 
 Ultimate Tic Tac Toe is a more complex version of the classic Tic Tac Toe. Here's how to play:
 
-1. **Objective**: Win three of the smaller Tic Tac Toe boards in a row (horizontally, vertically, or diagonally) to win the overall game.
-2. **Board Setup**: The game features a 3x3 grid of smaller Tic Tac Toe boards, each with its own 3x3 grid.
-3. **Gameplay**:
+- **Objective**: Win three of the smaller Tic Tac Toe boards in a row (horizontally, vertically, or diagonally) to win the overall game.
+- **Board Setup**: The game features a 3x3 grid of smaller Tic Tac Toe boards, each with its own 3x3 grid.
+- **Gameplay**:
     - Players take turns placing their mark (X or O) in one of the small boards.
     - Your move in a small board determines where your opponent must play next. For example, if you place your mark in the top-right cell of a small board, your opponent must play in the top-right small board on their turn.
     - If the small board where your opponent is supposed to play is already won or full, they can play in any available cell.
-4. **Winning**:
+- **Winning**:
     - To win a small board, align three of the same marks in a row within that board.
     - To win the overall game, align three small boards in a row (horizontally, vertically, or diagonally).
-5. **Draw**: The game ends in a draw if all cells are filled and no player has achieved three small boards in a row.
+- **Draw**: The game ends in a draw if all cells are filled and no player has achieved three small boards in a row.
 
 ## Features
 
@@ -28,6 +28,7 @@ Ultimate Tic Tac Toe is a more complex version of the classic Tic Tac Toe. Here'
 - **Reset Functionality**: A reset button allows players to restart the game at any point, clearing the board and resetting the scores.
 - **Rules Explanation**: A detailed section explaining the rules of the game is included, accessible through a collapsible details element.
 - **Page Reload Warning**: To prevent accidental clearing of the scoreboard, the game features a mechanism that warns users if they attempt to reload or exit the page. This provides a prompt to confirm their action, helping to avoid unintentional loss of their score and progress.
+- **Offline Play and PWA Support**: The game includes Progressive Web App (PWA) functionality, enabling offline access and installation on mobile devices for a native-like experience. This feature is implemented using the PWA Vite plugin, which provides seamless integration and support for offline capabilities. Additionally, a favicon generator was used to create the necessary icons for various device displays. Note that this feature is available only on the `pwa` branch of the repository. The `main` branch does not include PWA support and is intended for the standard web version.
 
 ## Project Structure
 
@@ -85,4 +86,3 @@ You can access the live version of the game at the following link: [Ultimate Tic
 ## Future Improvements
 
 - **Multiplayer Mode**: Adding online multiplayer support using WebSockets.
-- **Mobile Application**: Develop a Progressive Web App (PWA) version of the game.
