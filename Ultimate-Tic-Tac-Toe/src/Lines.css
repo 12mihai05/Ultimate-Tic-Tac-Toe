@@ -39,7 +39,7 @@
   }
   
   .v-line-2 {
-    left: calc(68%); 
+    left: calc(67.5%); 
   }
   
   .h-line-1 {
@@ -47,7 +47,7 @@
   }
   
   .h-line-2 {
-    top: calc(68%); 
+    top: calc(67.5%); 
   }
 
   .v-line-3{
@@ -55,7 +55,7 @@
   }
 
   .v-line-4{
-    left: calc(68%)
+    left: calc(67%)
   }
 
   .v-line-x-3{
@@ -119,11 +119,11 @@
   }
 
   .h-line-3{
-    top: calc(32%);
+    top: calc(31.5%);
   }
 
   .h-line-4{
-    top: calc(68%);
+    top: calc(67%);
   }
 
   .h-line-x-3{

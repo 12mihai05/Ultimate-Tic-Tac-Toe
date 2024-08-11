@@ -15,15 +15,6 @@ const baseCombinations = [
   [0,4,8], [2,4,6]
 ];
 
-const winningCombinations = [];
-
-for (let board = 0; board <= 8; board++) {
-  baseCombinations.forEach(cell => {
-    winningCombinations.push({ cell, board });
-  });
-}
-
-
 function checkSmallGameWinner(tiles, smallGames, setSmallGames) {
   for (let board = 0; board <= 8; board++) {
     for (const combo of baseCombinations) {
@@ -146,7 +137,7 @@ function checkWinner(smallGames, updateScore, setIsGameActive){
   }
 }
 
-function checkForDraw(smallGames, tiles, setIsGameActive,isDraw, setDraw){
+function checkForDraw(smallGames, tiles,isDraw, setDraw){
 
   setDraw(true);
 
@@ -159,7 +150,7 @@ function checkForDraw(smallGames, tiles, setIsGameActive,isDraw, setDraw){
 
   if (isDraw) {
     setDraw(true);
-    document.getElementsByClassName("title")[0].textContent = `Draw`;
+    document.getElementsByClassName("title")[0].textContent = `Draw!`;
   }
 }
 
@@ -169,6 +160,11 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
 
   const [isDraw, setDraw] = useState(false);
 
+  const turnElement = document.querySelector(`.${playerTurn.toLowerCase()}-turn`);
+  if (turnElement) {
+    turnElement.style.color = 'white';
+  }
+
   const handleTileClick = (board, index) => {
     if (tiles[board][index] !== null || !activeTiles[board][index] || !isGameActive) {
       return;
@@ -177,11 +173,16 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
     const newTiles = [...tiles];
     newTiles[board][index] = playerTurn;
     setTiles(newTiles);
-  
+
     if (playerTurn === Player_X) {
       setPlayerTurn(Player_O);
+      turnElement.style.textShadow = '';
+      turnElement.style.color = 'hsl(0, 0%, 75%)';
     } else {
       setPlayerTurn(Player_X);
+      turnElement.style.textShadow = '';
+      turnElement.style.color = 'hsl(0, 0%, 75%)';
+
     }
   
     const newSmallGames = [...smallGames];
@@ -221,7 +222,7 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
     useEffect(() => {
       if(isGameActive){
       checkSmallGameWinner(tiles, smallGames, setSmallGames);
-      checkForDraw(smallGames, tiles, setIsGameActive, isDraw, setDraw);
+      checkForDraw(smallGames, tiles, isDraw, setDraw);
       checkWinner(smallGames, updateScore, setIsGameActive);
       }
     }, [tiles]);

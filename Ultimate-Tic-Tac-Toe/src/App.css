@@ -94,6 +94,7 @@ body {
 
 .board-hover{
   background-color: hsl(220, 30%, 23%);
+  border-radius: 10px;
 }
 
 @media (max-width: 1115px){

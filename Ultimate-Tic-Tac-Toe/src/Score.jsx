@@ -6,8 +6,8 @@ function Score({scoreO, scoreX}){
         <>
         <div className="score-board">
             <div className="players">
-                <h3>Player_X</h3>
-                <h3>Player_O</h3>
+                <h3 className='x-turn'>Player_X</h3>
+                <h3 className='o-turn'>Player_O</h3>
             </div>
             
             <div className="score">

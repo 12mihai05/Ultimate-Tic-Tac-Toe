@@ -60,6 +60,14 @@ let resetAnimation = () => {
         }
       });
   }
+
+  const xTurn = document.querySelector(`.x-turn`);
+  const oTurn = document.querySelector(`.o-turn`);
+  
+  if (xTurn && oTurn) {
+    xTurn.style.color = 'white';
+    oTurn.style.color = 'hsl(0, 0%, 75%)';
+  }
 };
 
 function App() {
