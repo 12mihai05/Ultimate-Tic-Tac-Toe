@@ -129,13 +129,18 @@ body {
 .reset-btn{
   width: 130px;
   height: 40px;
-  background-color: rgb(45, 137, 223);
+  background-color: hsl(219, 41%, 23%);
   margin-top: 25px;
   border-radius: 20px;
-  border: 2px solid hsl(204, 68%, 65%);
+  border: 3px solid #2d89df;
   text-align: center;
   align-content: center;
   font-weight: bold;
-  color: hsl(220, 21%, 16%);
+  color: white;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.reset-btn:active {
+  transform: scale(0.95);
 }
