@@ -176,11 +176,9 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
 
     if (playerTurn === Player_X) {
       setPlayerTurn(Player_O);
-      turnElement.style.textShadow = '';
       turnElement.style.color = 'hsl(0, 0%, 75%)';
     } else {
       setPlayerTurn(Player_X);
-      turnElement.style.textShadow = '';
       turnElement.style.color = 'hsl(0, 0%, 75%)';
 
     }
