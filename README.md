@@ -25,6 +25,7 @@ Ultimate Tic Tac Toe is a more complex version of the classic Tic Tac Toe. Here'
 - **Interactive Game Logic**: Implements the logic for Ultimate Tic Tac Toe, allowing two players to compete by placing their marks (X or O) on a 3x3 grid of smaller Tic Tac Toe boards.
 - **Real-Time Updates**: The game state, including the tiles and the overall winner, updates in real-time based on player actions.
 - **Scoring System**: A scoring system tracks the number of wins for each player.
+- **Customizable Player Names**: The scoreboard allows users to customize player names by entering a new name (up to 13 characters) in an input field. This feature replaces the default names ("Player_X" and "Player_O") with user-defined names, adding a personalized touch to the gameplay experience.
 - **Reset Functionality**: A reset button allows players to restart the game at any point, clearing the board and resetting the scores.
 - **Rules Explanation**: A detailed section explaining the rules of the game is included, accessible through a collapsible details element.
 - **Page Reload Warning**: To prevent accidental clearing of the scoreboard, the game features a mechanism that warns users if they attempt to reload or exit the page. This provides a prompt to confirm their action, helping to avoid unintentional loss of their score and progress.
@@ -38,7 +39,7 @@ The project is structured into multiple React components, each handling a specif
 - **Game Component**: Handles the core logic of the game, including checking for winners in the smaller boards and the overall game, updating the board states, and determining the next player's move.
 - **Board Component**: Responsible for rendering each of the nine smaller Tic Tac Toe boards. It also includes the logic to render the grid lines and the interaction with each tile.
 - **Tile Component**: Represents each individual cell in the Tic Tac Toe boards. Handles user interactions, such as clicking on a tile to place a mark.
-- **Score Component**: Displays the current score of both players, updating in real-time as the game progresses.
+- **Score Component**: Displays the current score of both players, updating in real-time as the game progresses. Additionally, it includes input fields for players to change their names, with a character limit of 13 to ensure proper display and functionality.
 - **Reset Component**: A simple button component that allows players to reset the game and start over.
 - **Rules Component**: Provides an expandable/collapsible section with the detailed rules of the game.
 
