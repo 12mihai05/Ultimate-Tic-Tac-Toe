@@ -21,12 +21,14 @@ function Score({ scoreO, scoreX }) {
                     type="text"
                     value={playerX}
                     onChange={handlePlayerXChange}
+                    maxlength="13"
                 />
                 <input
                     className='o-turn'
                     type="text"
                     value={playerO}
                     onChange={handlePlayerOChange}
+                    maxlength="13"
                 />
             </div>
 
