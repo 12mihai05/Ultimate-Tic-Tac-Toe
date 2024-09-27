@@ -4,6 +4,7 @@ import Score from './Score.jsx';
 import Reset from './Reset.jsx';
 import Rules from "./Rules.jsx"
 import './App.css';
+import titleImage from './assets/title.png';
 
 const Player_X = "X";
 
@@ -176,7 +177,7 @@ function App() {
 
   return (
     <div ref={containerRef} className='container'>
-      <h1 className='title'>Ultimate-Tic-Tac-Toe</h1>
+      <img src={titleImage} alt="title" className='title'/>
       <div className='layout'>
         <Game
           updateScore={updateScore}
