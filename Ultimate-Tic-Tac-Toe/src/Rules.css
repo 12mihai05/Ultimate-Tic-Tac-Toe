@@ -27,7 +27,7 @@
     content: "\27A4";
     display: inline-block;
     margin-right: 10px;
-    color: hsl(204, 68%, 65%);
+    color: #e62b34;
     transform: rotate(0deg);
     transition: transform 0.3s ease;
   }
@@ -37,7 +37,7 @@
     content: "\27A4";
     transform: rotate(90deg);
     transition: transform 0.3s ease;
-    color: hsl(204, 68%, 65%);
+    color: #e62b34;
   }
   
   ol{
@@ -61,5 +61,5 @@
   }
   
   ul > li::marker{
-    color: hsl(204, 68%, 65%);
+    color: #e62b34;
   }
