@@ -47,7 +47,7 @@ body {
 .title{
   align-self: center;
   max-width: 500px;
-  margin: 80px 0;
+  margin-block: 70px;
 }
 
 .game{
