@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Board from './Board'
+import { getBestMove } from './ai'
 
 const Player_X = "X";
 const Player_O = "O";
@@ -156,7 +157,7 @@ function checkForDraw(smallGames, tiles,isDraw, setDraw){
 
 
 
-function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTurn, setPlayerTurn, isGameActive, setIsGameActive, activeTiles, setActiveTiles}) {
+function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTurn, setPlayerTurn, isGameActive, setIsGameActive, activeTiles, setActiveTiles, mode, aiDifficulty}) {
 
   const [isDraw, setDraw] = useState(false);
 
@@ -224,6 +225,69 @@ function Game({updateScore, tiles, setTiles, smallGames, setSmallGames, playerTu
       checkWinner(smallGames, updateScore, setIsGameActive);
       }
     }, [tiles]);
+
+  // AI effect: when in single player mode and it's O's turn (AI), compute and play move
+  useEffect(() => {
+    let cancelled = false;
+    async function doAiMove(){
+      if(!isGameActive) return;
+      if(mode !== 'single') return;
+      if(playerTurn !== Player_O) return; // AI plays O
+
+      // Slight delay for UX
+      await new Promise(r => setTimeout(r, 220));
+
+      const best = await getBestMove(tiles, smallGames, activeTiles, 'O', 'X', aiDifficulty);
+      if(cancelled) return;
+      if(!best) return;
+
+      // Apply move same as handleTileClick does
+      if (tiles[best.board][best.index] !== null || !activeTiles[best.board][best.index] || !isGameActive) {
+        return;
+      }
+
+      const newTiles = [...tiles];
+      newTiles[best.board][best.index] = playerTurn;
+      setTiles(newTiles);
+
+      setPlayerTurn(Player_X);
+
+      const newSmallGames = [...smallGames];
+      for (const combo of baseCombinations) {
+        const [a, b, c] = combo;
+        if (
+          newTiles[best.board][a] &&
+          newTiles[best.board][a] === newTiles[best.board][b] &&
+          newTiles[best.board][a] === newTiles[best.board][c]
+        ) {
+          newSmallGames[best.board] = newTiles[best.board][a];
+          setSmallGames(newSmallGames);
+          break;
+        }
+      }
+
+      const newActiveTiles = Array.from({ length: 9 }, () => Array(9).fill(false));
+      
+      if (newSmallGames[best.index] !== null || (newSmallGames[best.board] !== null && best.board === best.index) || !newTiles[best.index].some(tile => tile === null) || newTiles[best.index].every(tile => tile !== null)) {
+        for (let i = 0; i < 9; i++) {
+          if (newSmallGames[i] === null && newTiles[i].some(tile => tile === null)) {
+            for (let j = 0; j < 9; j++) {
+              newActiveTiles[i][j] = true;
+            }
+          }
+        }
+      } else {
+        for (let j = 0; j < 9; j++) {
+          newActiveTiles[best.index][j] = true;
+        }
+      }
+    
+      setActiveTiles(newActiveTiles);
+    }
+
+    doAiMove();
+    return () => { cancelled = true; }
+  }, [playerTurn, mode, tiles, smallGames, activeTiles, isGameActive, aiDifficulty]);
 
   return (
     <>

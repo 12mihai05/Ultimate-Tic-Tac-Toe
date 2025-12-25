@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Game from './Game.jsx';
 import Score from './Score.jsx';
 import Reset from './Reset.jsx';
@@ -77,26 +78,6 @@ function App() {
     return Array.from({ length: 9 }, () => Array(9).fill(null));
   });
 
-  // const [tiles, setTiles] = useState(() => {
-  //   return Array.from({ length: 9 }, (_, boardIndex) => {
-  //     const board = Array(9).fill(null);
-      
-  //     const drawPattern = [
-  //       ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', 'X'],
-  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
-  //       ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', 'X'],
-  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
-  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
-  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
-  //       ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', 'X'],
-  //       ['O', 'X', 'O', 'X', 'O', 'X', 'X', 'O', 'X'],
-  //       ['X', 'O', 'X', 'O', 'X', 'O', 'O', 'X', null],
-  //     ];
-  
-  //     return drawPattern[boardIndex];
-  //   });
-  // });
-
   const [activeTiles, setActiveTiles] = useState(() => {
     return Array.from({ length: 9 }, () => Array(9).fill(true));
   });
@@ -105,9 +86,72 @@ function App() {
 
   const [playerTurn, setPlayerTurn] = useState(Player_X);
 
-  const [isGameActive, setIsGameActive] = useState(true);
+  // start inactive so the initial modal blocks interaction
+  const [isGameActive, setIsGameActive] = useState(false);
 
   const containerRef = useRef(null);
+
+  // prepare portal target and modal element so overlay sits directly under #root
+  const rootElement = typeof document !== 'undefined' ? document.getElementById('root') : null;
+
+  // control modal visibility (initially open)
+  const [modalOpen, setModalOpen] = useState(true);
+  // true for the very first modal shown on app load; while true the modal cannot be closed
+  const [initialModal, setInitialModal] = useState(true);
+  
+  const modalElement = (
+    <div
+      role="dialog"
+      aria-modal="true"
+      style={{
+        position: 'fixed',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'rgba(0,0,0,0.78)',
+        zIndex: 9999,
+        padding: 18
+      }}
+    >
+      <div style={{
+        background: 'var(--bg, #0b1020)',
+        padding: 26,
+        borderRadius: 14,
+        minWidth: 320,
+        maxWidth: 520,
+        width: '92%',
+        color: 'white',
+        boxShadow: '0 12px 40px rgba(0,0,0,0.6)'
+      }}>
+        <h2 style={{margin: 0, fontSize: 22, letterSpacing: '0.4px'}}>How would you like to play?</h2>
+        <p style={{color: '#cfd8e3', marginTop: 10, marginBottom: 18, fontSize: 14, lineHeight: 1.5}}>
+          Co‑op: Two people take turns on the same device.
+          Single Player: play against a computer opponent. The large board contains nine smaller 3×3 boards — placing a mark in a small cell sends the next player to the corresponding small board. If that small board is already finished, the next player may choose any open cell.
+        </p>
+
+        <div style={{display: 'grid', gap: 10, gridTemplateColumns: '1fr', justifyItems: 'center'}}>
+          <button onClick={() => startMode('coop')} style={{width: '100%', maxWidth: 420, height: 40, padding: '0 14px', borderRadius: 20, border: '3px solid #5ed0ff', cursor: 'pointer', background: 'hsl(219, 41%, 23%)', color: 'white', fontWeight: 800, fontSize: 15}}>Co‑op — Two players</button>
+          <button onClick={() => startMode('single', 2)} style={{width: '100%', maxWidth: 420, height: 40, padding: '0 14px', borderRadius: 20, border: '3px solid #5ed0ff', cursor: 'pointer', background: 'hsl(219, 41%, 23%)', color: 'white', fontWeight: 800, fontSize: 15}}>Single Player — Easy</button>
+          <button onClick={() => startMode('single', 3)} style={{width: '100%', maxWidth: 420, height: 40, padding: '0 14px', borderRadius: 20, border: '3px solid #5ed0ff', cursor: 'pointer', background: 'hsl(219, 41%, 23%)', color: 'white', fontWeight: 800, fontSize: 15}}>Single Player — Medium</button>
+          <button onClick={() => startMode('single', 4)} style={{width: '100%', maxWidth: 420, height: 40, padding: '0 14px', borderRadius: 20, border: '3px solid #5ed0ff', cursor: 'pointer', background: 'hsl(219, 41%, 23%)', color: 'white', fontWeight: 800, fontSize: 15}}>Single Player — Hard</button>
+        </div>
+
+        {/* show Close only if not the initial modal shown at app load */}
+        {!initialModal && (
+          <div style={{display: 'flex', justifyContent: 'center', marginTop: 14}}>
+            <button onClick={() => { setModalOpen(false); setIsGameActive(true); }} style={{height: 36, padding: '0 14px', borderRadius: 10, border: 'none', background: 'transparent', color: '#cfd8e3', cursor: 'pointer'}}>Close</button>
+          </div>
+        )}
+
+      </div>
+    </div>
+  );
+
+  // New: mode and AI difficulty
+  // mode: null = show menu, 'coop' = two players, 'single' = single player vs AI
+  const [mode, setMode] = useState(null);
+  const [aiDifficulty, setAiDifficulty] = useState(3); // default depth
 
   let resetGame = () => {
     setSmallGames(Array(9).fill(null))
@@ -123,6 +167,9 @@ function App() {
 
     setIsGameActive(true);
   }
+
+  // open menu from layout: disable board while modal is open
+  const openMenu = () => { setModalOpen(true); setIsGameActive(false); setInitialModal(false); }
 
   const [scoreX, setScoreX] = useState(0);
   const [scoreO, setScoreO] = useState(0);
@@ -175,9 +222,26 @@ function App() {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
+  const startMode = (selectedMode, difficulty = 3) => {
+    setMode(selectedMode);
+    setAiDifficulty(difficulty);
+    setPlayerTurn(Player_X);
+    // reset board and scores when changing mode
+    resetGame();
+    setScoreX(0);
+    setScoreO(0);
+    setModalOpen(false);
+    setIsGameActive(true);
+    setInitialModal(false);
+  }
+
   return (
     <div ref={containerRef} className='container'>
       <img src={titleImage} alt="title" className='title'/>
+
+      {/* Simple menu overlay to choose mode - uses inline styles to avoid CSS changes */}
+      {modalOpen && (rootElement ? createPortal(modalElement, rootElement) : modalElement)}
+
       <div className='layout'>
         <Game
           updateScore={updateScore}
@@ -191,10 +255,13 @@ function App() {
           setIsGameActive={setIsGameActive}
           activeTiles={activeTiles}
           setActiveTiles={setActiveTiles}
+          mode={mode || 'coop'}
+          aiDifficulty={aiDifficulty}
         />
         <div className='layout-2'>
           <Score scoreX={scoreX} scoreO={scoreO} />
           <Reset resetGame={resetGame}/>
+          <div className='reset-btn' onClick={openMenu} style={{marginTop: 12}}>Menu</div>
         </div>
       </div>
       <Rules/>
